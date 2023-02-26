@@ -1,9 +1,14 @@
-﻿@model zgstumpf_Assignment3.Models.Actor
+﻿@using Tweetinvi;
+@using VaderSharp2;
+@model zgstumpf_Assignment3.Models.Actor
 
 @{
     ViewData["Title"] = "Details";
 }
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha384-Ft/vb48LwsAEtgltj7o+6vtS2esTU9PCpDqcXs4OCVQFZu5BqprHtUCZ4kjK+bpE" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" integrity="sha384-nlqJt7hgTYzEtpwtccFUVNZPXLN4pJoZ/QIfCtAIK9txm0dVyw/lz/47SslwYLPj" crossorigin="anonymous">
+<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js" integrity="sha384-mj7dH3gbaPZgpfQm0xxNKrdul/K/X8jZgbL5ubHVRpDqg5adSZ/P+KRrFYX5dOxF" crossorigin="anonymous"></script>
 <h1>Details</h1>
 
 <div>
@@ -45,4 +50,55 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
+</div>
+
+@{
+    var actorName = Model.Name;
+
+    // Punctuation such as colons may interfere with Twitter's search API
+    var actorNameNoPunctuation = new string(actorName.Where(c => !char.IsPunctuation(c)).ToArray());
+
+    var userClient = new TwitterClient("AAx9UfdCemph0Pg0t8Moq5c6L", "LbhoERpFGjBESYSNjTHuRvE0R80cGxZBx5lJWanM5lFpO2Hs63", "1455230009153503238-WTxQgoYUAQ3D9PTSsUu8stHkmJvuVe", "2ZVnM9tWbCSNAhyJcyC4WPIgiIbUWZ77MTLSx2Qb8TkW3");
+    var searchResponse = await userClient.SearchV2.SearchTweetsAsync(actorNameNoPunctuation);
+    var tweets = searchResponse.Tweets;
+    var analyzer = new SentimentIntensityAnalyzer();
+
+    double totalSentimentScore = 0;
+    foreach (Tweetinvi.Models.V2.TweetV2 tweet in tweets)
+    {
+        totalSentimentScore += analyzer.PolarityScores(tweet.Text).Compound;
+    }
+    double overallSentimentScore = Math.Round((totalSentimentScore / tweets.Length), 2);
+}
+
+<div id="ActorTweets">
+    <h4>Tweets</h4>
+    <h5>Overall sentiment analysis: @overallSentimentScore</h5>
+    <p>A score greater than 0 means overall sentiment is positive, and a negative score means overall sentiment is negative.</p>
+
+    <table id="ActorSentiment">
+        <thead>
+            <tr>
+                <th>Top 100 Tweets</th>
+                <th>Sentiment</th>
+            </tr>
+        </thead>
+        <tbody>
+        @{
+            foreach (Tweetinvi.Models.V2.TweetV2 tweet in tweets){
+                <tr>
+                    <td>@tweet.Text</td>
+                    <td>@analyzer.PolarityScores(tweet.Text).Compound</td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ActorSentiment').DataTable();
+        });
+    </script>
+
 </div>

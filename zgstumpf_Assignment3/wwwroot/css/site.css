@@ -16,3 +16,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.media-image-in-table {
+    width: 250px;
+    height: auto
+}

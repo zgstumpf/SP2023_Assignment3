@@ -1,31 +1,31 @@
 ﻿@model IEnumerable<zgstumpf_Assignment3.Models.Actor>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Actors";
 }
 
-<h1>Actors and Actresses</h1>
+<h1>Your Actors and Actresses</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Add an actor/actress</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gender)
+                Gender
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Age)
+                Age
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ImdbHyperlink)
+                IMDb Link
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhotoUrl)
+                Photo
             </th>
             <th></th>
         </tr>
@@ -43,11 +43,11 @@
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImdbHyperlink)
+                    <a href="@Html.DisplayFor(modelItem => item.ImdbHyperlink)" target="_blank" rel="noopener noreferrer">@Html.DisplayFor(modelItem => item.ImdbHyperlink)</a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PhotoUrl)
-            </td>
+                    <img class="media-image-in-table" src="@Html.DisplayFor(modelItem => item.PhotoUrl)" alt="An image relevant to the specific actor/actress.">
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
