@@ -1,0 +1,77 @@
+﻿@using Tweetinvi;
+@using VaderSharp2;
+@model zgstumpf_Assignment3.Models.Movie
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ImdbHyperlink)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImdbHyperlink)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReleaseYear)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReleaseYear)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MediaUrl)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MediaUrl)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<h4>Tweets</h4>
+<h5>Overall analysis:</h5>
+<table>
+        <tr>
+            <th>Top 100 Tweets</th>
+            <th>Sentiment</th>
+        </tr>
+    @{
+        var movieTitle = Model.Title;
+
+        // Punctuation such as colons may interfere with Twitter's search API
+        var movieTitleNoPunctuation = new string(movieTitle.Where(c => !char.IsPunctuation(c)).ToArray());
+
+        var userClient = new TwitterClient("AAx9UfdCemph0Pg0t8Moq5c6L", "LbhoERpFGjBESYSNjTHuRvE0R80cGxZBx5lJWanM5lFpO2Hs63", "1455230009153503238-WTxQgoYUAQ3D9PTSsUu8stHkmJvuVe", "2ZVnM9tWbCSNAhyJcyC4WPIgiIbUWZ77MTLSx2Qb8TkW3");
+        var searchResponse = await userClient.SearchV2.SearchTweetsAsync(movieTitleNoPunctuation);
+        var tweets = searchResponse.Tweets;
+        var analyzer = new SentimentIntensityAnalyzer();
+        foreach (Tweetinvi.Models.V2.TweetV2 tweet in tweets)
+        {
+        <tr>
+            <td>@tweet.Text</td>
+            <td>@analyzer.PolarityScores(tweet.Text).Compound</td>
+        </tr>
+    }
+    }
+</table>
