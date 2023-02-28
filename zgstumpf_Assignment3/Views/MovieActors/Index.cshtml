@@ -3,13 +3,16 @@
 @{
     ViewData["Title"] = "Index";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha384-Ft/vb48LwsAEtgltj7o+6vtS2esTU9PCpDqcXs4OCVQFZu5BqprHtUCZ4kjK+bpE" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" integrity="sha384-nlqJt7hgTYzEtpwtccFUVNZPXLN4pJoZ/QIfCtAIK9txm0dVyw/lz/47SslwYLPj" crossorigin="anonymous">
+<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js" integrity="sha384-mj7dH3gbaPZgpfQm0xxNKrdul/K/X8jZgbL5ubHVRpDqg5adSZ/P+KRrFYX5dOxF" crossorigin="anonymous"></script>
 
 <h1>Movies and Actors</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table id="movieActorTable" class="table">
     <thead>
         <tr>
             <th>
@@ -22,7 +25,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model) 
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Movie.Title)
@@ -36,6 +40,12 @@
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#movieActorTable').DataTable();
+    });
+</script>

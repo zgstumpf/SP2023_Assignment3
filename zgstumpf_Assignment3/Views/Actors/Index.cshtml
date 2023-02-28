@@ -4,56 +4,59 @@
     ViewData["Title"] = "Actors";
 }
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha384-Ft/vb48LwsAEtgltj7o+6vtS2esTU9PCpDqcXs4OCVQFZu5BqprHtUCZ4kjK+bpE" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" integrity="sha384-nlqJt7hgTYzEtpwtccFUVNZPXLN4pJoZ/QIfCtAIK9txm0dVyw/lz/47SslwYLPj" crossorigin="anonymous">
+<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js" integrity="sha384-mj7dH3gbaPZgpfQm0xxNKrdul/K/X8jZgbL5ubHVRpDqg5adSZ/P+KRrFYX5dOxF" crossorigin="anonymous"></script>
+
+
 <h1>Your Actors and Actresses</h1>
 
 <p>
     <a asp-action="Create">Add an actor/actress</a>
 </p>
-<table class="table">
+
+<table id="actorTable" class="table">
     <thead>
         <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Gender
-            </th>
-            <th>
-                Age
-            </th>
-            <th>
-                IMDb Link
-            </th>
-            <th>
-                Photo
-            </th>
-            <th></th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>IMDb Link</th>
+            <th>Photo</th>
+            <th>Actions</th> @*For edit/details/delete options*@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
                     <a href="@Html.DisplayFor(modelItem => item.ImdbHyperlink)" target="_blank" rel="noopener noreferrer">@Html.DisplayFor(modelItem => item.ImdbHyperlink)</a>
-            </td>
-            <td>
+                </td>
+                <td>
                     <img class="media-image-in-table" src="@Html.DisplayFor(modelItem => item.PhotoUrl)" alt="An image relevant to the specific actor/actress.">
                 </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#actorTable').DataTable();
+    });
+</script>

@@ -4,56 +4,57 @@
     ViewData["Title"] = "Movies";
 }
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha384-Ft/vb48LwsAEtgltj7o+6vtS2esTU9PCpDqcXs4OCVQFZu5BqprHtUCZ4kjK+bpE" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" integrity="sha384-nlqJt7hgTYzEtpwtccFUVNZPXLN4pJoZ/QIfCtAIK9txm0dVyw/lz/47SslwYLPj" crossorigin="anonymous">
+<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js" integrity="sha384-mj7dH3gbaPZgpfQm0xxNKrdul/K/X8jZgbL5ubHVRpDqg5adSZ/P+KRrFYX5dOxF" crossorigin="anonymous"></script>
+
 <h1>Your Movies</h1>
 
 <p>
     <a asp-action="Create">Add a movie</a>
 </p>
-<table class="table">
+<table id="movieTable" class="table">
     <thead>
         <tr>
-            <th>
-                Title
-            </th>
-            <th>
-                IMDb Link
-            </th>
-            <th>
-                Genre
-            </th>
-            <th>
-                Release Year
-            </th>
-            <th>
-                Media
-            </th>
-            <th></th>
+            <th>Title</th>
+            <th>IMDb Link</th>
+            <th>Genre</th>
+            <th>Release Year</th>
+            <th>Media</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                 <a href="@Html.DisplayFor(modelItem => item.ImdbHyperlink)" target="_blank" rel="noopener noreferrer">@Html.DisplayFor(modelItem => item.ImdbHyperlink)</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseYear)
-            </td>
-            <td>
-                <img class="media-image-in-table" src="@Html.DisplayFor(modelItem => item.MediaUrl)" alt="An image relevant to the specific movie.">
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model) 
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                     <a href="@Html.DisplayFor(modelItem => item.ImdbHyperlink)" target="_blank" rel="noopener noreferrer">@Html.DisplayFor(modelItem => item.ImdbHyperlink)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseYear)
+                </td>
+                <td>
+                    <img class="media-image-in-table" src="@Html.DisplayFor(modelItem => item.MediaUrl)" alt="An image relevant to the specific movie.">
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#movieTable').DataTable();
+    });
+</script>
