@@ -27,3 +27,15 @@ body {
     text-align: center;
     width: 60%;
 }
+
+.home-img {
+    width: 250px;
+    height: auto
+}
+
+#home-infographic {
+    padding-top: 35px;
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
+}
