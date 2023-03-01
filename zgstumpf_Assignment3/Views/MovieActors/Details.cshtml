@@ -7,24 +7,24 @@
 <h1>Details</h1>
 
 <div>
-    <h4>MovieActor</h4>
+    <h4>Movie/Actor Pair</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Movie)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Movie.Id)
+            @Html.DisplayFor(model => model.Movie.Title)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Actor)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Actor.Id)
+            @Html.DisplayFor(model => model.Actor.Name)
         </dd>
     </dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to movies and actors</a>
 </div>

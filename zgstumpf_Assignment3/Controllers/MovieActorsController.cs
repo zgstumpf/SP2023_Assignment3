@@ -86,8 +86,8 @@ namespace zgstumpf_Assignment3.Controllers
             {
                 return NotFound();
             }
-            ViewData["ActorId"] = new SelectList(_context.Actor, "Id", "Id", movieActor.ActorId);
-            ViewData["MovieId"] = new SelectList(_context.Movie, "Id", "Id", movieActor.MovieId);
+            ViewData["ActorId"] = new SelectList(_context.Actor, "Id", "Name", movieActor.ActorId);
+            ViewData["MovieId"] = new SelectList(_context.Movie, "Id", "Title", movieActor.MovieId);
             return View(movieActor);
         }
 

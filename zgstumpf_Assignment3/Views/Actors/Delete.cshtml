@@ -30,13 +30,13 @@
             @Html.DisplayFor(model => model.Age)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImdbHyperlink)
+            IMDb Link
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ImdbHyperlink)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhotoUrl)
+            Photo URL
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PhotoUrl)
@@ -46,6 +46,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index">Back to actors</a>
     </form>
 </div>
