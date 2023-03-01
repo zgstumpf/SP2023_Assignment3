@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\zgstumpf_Assignment3.props" />
-</Project>
