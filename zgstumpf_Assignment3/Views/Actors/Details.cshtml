@@ -6,9 +6,6 @@
     ViewData["Title"] = "Details";
 }
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha384-Ft/vb48LwsAEtgltj7o+6vtS2esTU9PCpDqcXs4OCVQFZu5BqprHtUCZ4kjK+bpE" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" integrity="sha384-nlqJt7hgTYzEtpwtccFUVNZPXLN4pJoZ/QIfCtAIK9txm0dVyw/lz/47SslwYLPj" crossorigin="anonymous">
-<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js" integrity="sha384-mj7dH3gbaPZgpfQm0xxNKrdul/K/X8jZgbL5ubHVRpDqg5adSZ/P+KRrFYX5dOxF" crossorigin="anonymous"></script>
 
 <h1>Details</h1>
 
@@ -78,7 +75,7 @@
     <h5>Overall sentiment analysis: @overallSentimentScore</h5>
     <p>A score greater than 0 means overall sentiment is positive, and a negative score means overall sentiment is negative.</p>
 
-    <table id="ActorSentiment">
+    <table class="make-data-table">
         <thead>
             <tr>
                 <th>Top 100 Tweets</th>
@@ -97,10 +94,5 @@
         </tbody>
     </table>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#ActorSentiment').DataTable();
-        });
-    </script>
 
 </div>
