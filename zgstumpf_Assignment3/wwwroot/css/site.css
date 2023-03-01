@@ -21,3 +21,9 @@ body {
     width: 250px;
     height: auto
 }
+
+#home-text{
+    margin: auto;
+    text-align: center;
+    width: 60%;
+}
