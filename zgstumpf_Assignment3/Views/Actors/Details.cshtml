@@ -63,6 +63,7 @@
 
     // Calculate average or overall sentiment score
     double totalSentimentScore = 0;
+    int countNonZeroScores = 0;
     foreach (Tweetinvi.Models.V2.TweetV2 tweet in tweets)
     {
         double score = analyzer.PolarityScores(tweet.Text).Compound;
@@ -70,15 +71,16 @@
         // Do not include scores of 0, meaning VaderSharp2 couldn't analyze the sentiment, in the calculation
         if (score != 0)
         {
+            countNonZeroScores++;
             totalSentimentScore += score;
         }
     }
-    double overallSentimentScore = Math.Round((totalSentimentScore / tweets.Length), 2);
+    double averageSentimentScore = Math.Round((totalSentimentScore / countNonZeroScores), 2);
 }
 
 <div class="tweets">
     <h4>Tweets</h4>
-    <h5>Overall sentiment analysis: @overallSentimentScore</h5>
+    <h5>Overall sentiment analysis: @averageSentimentScore</h5>
     <p>A score greater than 0 means overall sentiment is positive, and a negative score means overall sentiment is negative.  Values range from 1 to -1.</p>
 
     <table class="make-data-table">
