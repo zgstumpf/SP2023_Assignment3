@@ -64,7 +64,13 @@
     double totalSentimentScore = 0;
     foreach (Tweetinvi.Models.V2.TweetV2 tweet in tweets)
     {
-        totalSentimentScore += analyzer.PolarityScores(tweet.Text).Compound;
+        double score = analyzer.PolarityScores(tweet.Text).Compound;
+
+        // Do not include scores of 0, meaning VaderSharp2 couldn't analyze the sentiment, in the calculation
+        if (score != 0)
+        {
+            totalSentimentScore += score;
+        }
     }
     double overallSentimentScore = Math.Round((totalSentimentScore / tweets.Length), 2);
 }
